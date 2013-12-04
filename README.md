@@ -89,6 +89,34 @@ instance will contains:
 }
 ```
 
+###You compose models with other models or with inlined objects:
+
+```javascript
+        var user = model({
+                name: [String,"unknown"],
+                cool: [Boolean,true]
+            }),
+            bill = model({
+                customer: user,
+                payment: {
+                    terms:String,
+                    days:[Number,30]
+                }
+            }),
+            instance = bill();
+```
+instance will contains:
+
+```javascript
+{
+    customer: {
+        name: 'unknown',
+        cool: true
+    },
+    payment: { terms: '', days: 30 }
+}
+```
+
 
 
 ## Examples

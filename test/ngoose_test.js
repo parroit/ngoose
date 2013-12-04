@@ -138,7 +138,7 @@ describe("ngoose model", function () {
                 name:"",
                 cool:false
             };
-            console.dir(instance);
+            //console.dir(instance);
             expect(_.isEqual(instance,expectedValue)).to.be.equal(true);
         });
 
@@ -194,5 +194,41 @@ describe("ngoose model", function () {
         });
 
 
+    });
+
+
+    describe("model composition", function () {
+        var user = model({
+                name: [String,"unknown"],
+                cool: [Boolean,true]
+            }),
+            bill = model({
+                customer: user,
+                payment: {
+                    terms:String,
+                    days:[Number,30]
+                }
+            }),
+            instance = bill();
+
+        it("create inlined objects", function () {
+            var expectedValue = {
+                terms:"",
+                days:30
+
+            };
+
+            expect(_.isEqual(instance.payment,expectedValue)).to.be.equal(true);
+        });
+
+        it("create other models", function () {
+            var expectedValue = {
+                name:"unknown",
+                cool:true
+
+            };
+
+            expect(_.isEqual(instance.customer,expectedValue)).to.be.equal(true);
+        });
     });
 });
