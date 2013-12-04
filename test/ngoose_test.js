@@ -231,4 +231,58 @@ describe("ngoose model", function () {
             expect(_.isEqual(instance.customer,expectedValue)).to.be.equal(true);
         });
     });
+
+    describe("model composition with arrays", function () {
+        var delivery = model({
+                address:String,
+                to: [String,"unknown"]
+            }),
+            bill = model({
+                rows: [{
+                    product:String,
+                    price:[Number,30],
+                    quantity:[Number,1]
+                }],
+                deliveries: [delivery]
+
+            }),
+            instance = bill({
+                deliveries:[{
+                    address:"somewhere"
+                },{
+                    address:"some else where"
+                }],
+                rows:[{
+                    product:"apples"
+                },{
+                    product:"oranges"
+                }]
+            });
+
+        it("create inlined objects", function () {
+            var expectedValue = [{
+                product:"apples",
+                price:30,
+                quantity:1
+            },{
+                product:"oranges",
+                price:30,
+                quantity:1
+            }];
+
+            expect(_.isEqual(instance.rows,expectedValue)).to.be.equal(true);
+        });
+
+        it("create other models", function () {
+            var expectedValue = [{
+                address:"somewhere",
+                to:"unknown"
+            },{
+                address:"some else where",
+                to:"unknown"
+            }];
+
+            expect(_.isEqual(instance.deliveries,expectedValue)).to.be.equal(true);
+        });
+    });
 });

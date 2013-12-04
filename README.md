@@ -89,7 +89,7 @@ instance will contains:
 }
 ```
 
-###You compose models with other models or with inlined objects:
+###You can compose models with other models or with inlined objects:
 
 ```javascript
         var user = model({
