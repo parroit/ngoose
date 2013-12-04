@@ -211,6 +211,31 @@ describe("ngoose model", function () {
             }),
             instance = bill();
 
+        it("use data if provided", function () {
+            var myBill = bill({
+                customer:{
+                    name:"Garibaldi"
+                },
+                payment:{
+                    terms:"as usual"
+                }
+            });
+            var expectedValue = {
+                customer : {
+                    name:"Garibaldi",
+                    cool:true
+
+                }    ,
+                payment:{
+                    terms:"as usual",
+                    days:30
+
+                }
+            };
+
+            expect(_.isEqual(myBill,expectedValue)).to.be.equal(true);
+        });
+
         it("create inlined objects", function () {
             var expectedValue = {
                 terms:"",
@@ -258,7 +283,14 @@ describe("ngoose model", function () {
                     product:"oranges"
                 }]
             });
+        it("create empty arrays", function () {
+            var expectedValue = {
+                rows:[],
+                deliveries:[]
+            };
 
+            expect(_.isEqual(bill(),expectedValue)).to.be.equal(true);
+        });
         it("create inlined objects", function () {
             var expectedValue = [{
                 product:"apples",
