@@ -1,7 +1,8 @@
 'use strict';
 
-var expect = require("expect.js");
-var model = require("../lib/ngoose");
+var expect = require("expect.js"),
+    _ = require("lodash"),
+    model = require("../lib/ngoose");
 
 
 describe("ngoose model", function () {
@@ -92,7 +93,7 @@ describe("ngoose model", function () {
 			throwsWith("unvalid subobject",{f:""});
 			throwsWith("unvalid array",[""]);
 			throwsWith("empty array",[]);
-			throwsWith("multielement array",[Number,String]);
+            coudlBe("multielement array with default values",[Number,12]);
 			
 	    });
 	    
@@ -112,7 +113,8 @@ describe("ngoose model", function () {
 	describe("create instance", function () {
 		var user=model({
 				age: Number,
-				name: String 
+				name: String,
+                cool: Boolean
 			}),
 			instance;
 		
@@ -130,9 +132,67 @@ describe("ngoose model", function () {
 	       expect(instance).to.be.an("object");
 	    });
 
-        it("model instance has default property ", function () {
+        it("model instance has default properties", function () {
+            var expectedValue = {
+                age:0,
+                name:"",
+                cool:false
+            };
+            console.dir(instance);
+            expect(_.isEqual(instance,expectedValue)).to.be.equal(true);
+        });
 
-            expect(instance).to.be.an("object");
+        it("supplied properties values are kept", function () {
+            var u = user({age:42});
+            expect(u.age).to.be.equal(42);
+        });
+
+        it("undefined supplied properties values are removed", function () {
+            var u = user({notDefined:42});
+            var expectedValue = {
+                age:0,
+                name:"",
+                cool:false
+            };
+            expect(_.isEqual(u,expectedValue)).to.be.equal(true);
         });
 	});
+
+
+    describe("use defaults provided", function () {
+        var user=model({
+                age: [Number,42],
+                name: [String,"unknown"],
+                born: [Date,new Date(1976,1,3)],
+                cool: [Boolean,true]
+            }),
+            instance = user();
+
+        before(function(){
+            instance = user();
+        });
+
+
+        it("use default for numbers", function () {
+
+            expect(instance.age).to.be.equal(42);
+        });
+
+        it("use default for strings", function () {
+
+            expect(instance.name).to.be.equal("unknown");
+        });
+
+        it("use default for dates", function () {
+
+            expect(instance.born.getTime()).to.be.equal(new Date(1976,1,3).getTime());
+        });
+
+        it("use default for boolean", function () {
+
+            expect(instance.cool).to.be.equal(true);
+        });
+
+
+    });
 });

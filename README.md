@@ -18,6 +18,7 @@ var user=model({
 		instance=user();
 
 ```
+
 instance will contains:
 
 ```javascript

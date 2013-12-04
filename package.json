@@ -34,7 +34,8 @@
     "grunt-contrib-watch": "~0.5.3"
   },
   "dependencies": {
-    "lodash": "~2.2.1"
+    "lodash": "~2.2.1",
+    "fn-name": "~0.1.0"
   },
   "keywords": []
 }
