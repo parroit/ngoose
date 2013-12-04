@@ -7,15 +7,17 @@ ngoose does just one think: instantiate new objects based on a schema definition
 ## Getting Started
 Install the module with: `npm install ngoose --save`
 
-Then use like this:
+###Then use like this:
 
 ```javascript
 var model = require("../lib/ngoose");
+
 var user=model({
-				age: [Number,42],
-				name: String
-		}),
-		instance=user();
+    age: Number,
+    name: String
+}),
+
+instance=user();
 
 ```
 
@@ -23,12 +25,12 @@ instance will contains:
 
 ```javascript
 {
-    age: 42,
+    age: 0,
     name: ""
 }
 ```
 
-You can supply data to the factory method:
+###You can supply data to the factory method:
 ```javascript
 
 var instance=user({
@@ -40,12 +42,12 @@ instance will contains:
 
 ```javascript
 {
-    age: 42,
+    age: 0,
     name: "Garibaldi"
 }
 ```
 
-Supplied fields that are not defined in schema are not inserted in created instance:
+###Supplied fields that are not defined in schema are not inserted in created instance:
 
 ```javascript
 
@@ -59,7 +61,30 @@ instance will contains:
 
 ```javascript
 {
-    age: 42,
+    age: 0,
+    name: "Garibaldi"
+}
+```
+
+
+
+###You can specify default values in schema:
+
+```javascript
+
+var user=model({
+    address: [String,"somewhere"],
+    name: [String,"Garibaldi"]
+}),
+
+var instance=user();
+
+```
+instance will contains:
+
+```javascript
+{
+    address: "somewhere",
     name: "Garibaldi"
 }
 ```
