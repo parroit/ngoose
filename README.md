@@ -1,4 +1,5 @@
-# ngoose [![Build Status](https://secure.travis-ci.org/parroit/ngoose.png?branch=master)](http://travis-ci.org/parroit/ngoose)  [![Npm module](https://badge.fury.io/js/ngoose.png)](https://npmjs.org/package/ngoose)
+# ngoose 
+[![Build Status](https://secure.travis-ci.org/parroit/ngoose.png?branch=master)](http://travis-ci.org/parroit/ngoose)  [![Npm module](https://badge.fury.io/js/ngoose.png)](https://npmjs.org/package/ngoose) [![Code Climate](https://codeclimate.com/github/parroit/ngoose.png)](https://codeclimate.com/github/parroit/ngoose)
 
 models done like mongoose, but storage agnostics
 

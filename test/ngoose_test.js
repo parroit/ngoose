@@ -103,4 +103,26 @@ describe("ngoose", function () {
 	       expect(ngoose.model({a:Number}).definition.a).to.be.equal(Number);
 	    });
 	});
+
+	describe("create", function () {
+		var model=ngoose.model({
+				age: Number,
+				name: String 
+			}),
+			instance;
+		
+		before(function(){
+			instance = model.create();
+		});
+
+		it("is defined", function () {
+	       
+	       expect(model.create).to.be.an("function");
+	    });
+
+		it("return model instance", function () {
+	       
+	       expect(instance).to.be.an("object");
+	    });
+	});
 });
