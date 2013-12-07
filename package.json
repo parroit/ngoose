@@ -1,7 +1,7 @@
 {
   "name": "ngoose",
   "description": "models done like mongoose, but storage agnostics",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/parroit/ngoose",
   "author": {
     "name": "Andrea Parodi",
