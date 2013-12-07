@@ -164,7 +164,8 @@ describe("ngoose model", function () {
                 age: [Number,42],
                 name: [String,"unknown"],
                 born: [Date,new Date(1976,1,3)],
-                cool: [Boolean,true]
+                cool: [Boolean,true],
+                aField: [String,function(){return "UNKNOWN"}]
             }),
             instance = user();
 
@@ -191,6 +192,11 @@ describe("ngoose model", function () {
         it("use default for boolean", function () {
 
             expect(instance.cool).to.be.equal(true);
+        });
+
+        it("use function as default", function () {
+
+            expect(instance.aField).to.be.equal("UNKNOWN");
         });
 
 
