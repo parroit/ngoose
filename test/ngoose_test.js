@@ -263,6 +263,32 @@ describe("ngoose model", function () {
         });
     });
 
+    describe("_init function", function () {
+        var delivery = model({
+                address:String,
+                to: [String,"unknown"],
+                _init: function(){
+                    this.to = this.to.toUpperCase();
+                    this.address ="nowhere";
+                }
+            }),
+            instance = delivery();
+
+        it("is called if provided", function () {
+            var expectedValue = {
+                address:"nowhere",
+                to:"UNKNOWN"
+            };
+
+            expect(_.isEqual(instance,expectedValue)).to.be.equal(true);
+        });
+
+        it("is not present on instances", function () {
+
+            expect(instance._init).to.be.equal(undefined);
+        });
+    });
+
     describe("model composition with arrays", function () {
         var delivery = model({
                 address:String,
